@@ -1,0 +1,17 @@
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/entidades/Asociacion.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/controladores/AsociacionController.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/controladores/CompeticionController.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/entidades/Club.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/entidades/Competicion.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/RelacionesApplication.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/controladores/EntrenadorController.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/repositorios/EntrenadorRepository.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/repositorios/AsociacionRepository.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/repositorios/JugadorRepository.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/entidades/Entrenador.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/controladores/ClubController.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/entidades/Jugador.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/repositorios/CompeticionRepository.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/controladores/JugadorController.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/repositorios/ClubRepository.java
+/home/diego/Descargas/spring-europa/src/main/java/com/quiz/relaciones/controladores/HomeController.java
