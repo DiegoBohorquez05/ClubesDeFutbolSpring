@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Detalle Club</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <style>
+    body{background:#0d1117;color:#e6edf3;}
+    .dark-card{background:#161b22;border:1px solid #21262d;border-radius:12px;}
+    .rel-header{padding:10px 16px;font-size:.8rem;font-weight:700;letter-spacing:.5px;border-radius:10px 10px 0 0;}
+    .rel-pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.72rem;font-weight:600;}
+    .pill-1to1{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid #4ade80;}
+    .pill-1toN{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid #60a5fa;}
+    .pill-Nto1{background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid #c084fc;}
+    .pill-NtoN{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid #f87171;}
+    table td,table th{border-color:#21262d!important;color:#e6edf3!important;}
+    table thead th{background:#0d2550!important;color:#f0c040!important;}
+  </style>
+</head>
+<body>
+  <div th:replace="~{fragments/navbar :: navbar}"></div>
+  <div class="container py-5">
+    <a th:href="@{/clubes}" class="btn btn-sm btn-outline-secondary mb-4">
+      <i class="bi bi-arrow-left"></i> Volver
+    </a>
+
+    <!-- Header del club -->
+    <div class="dark-card p-4 mb-4 d-flex align-items-center gap-4">
+      <div style="width:70px;height:70px;background:#0d2550;border:3px solid #f0c040;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;">&#9917;</div>
+      <div>
+        <h2 class="fw-bold mb-1" style="color:#f0c040;" th:text="${club.nombre}"></h2>
+        <span style="color:#8b949e;" th:text="${club.ciudad + '  —  Fundado: ' + club.anioFundacion}"></span>
+      </div>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- @OneToOne -->
+      <div class="col-md-6">
+        <div class="rel-header" style="background:rgba(34,197,94,0.15);color:#4ade80;">
+          @OneToOne &nbsp;—&nbsp; Entrenador
+        </div>
+        <div class="dark-card p-3" style="border-radius:0 0 10px 10px;" th:if="${club.entrenador != null}">
+          <p class="mb-1 fw-bold" th:text="${club.entrenador.nombre + ' ' + club.entrenador.apellido}"></p>
+          <p class="mb-1 small" style="color:#8b949e;">Edad: <span th:text="${club.entrenador.edad}"></span></p>
+          <p class="mb-0 small" style="color:#8b949e;">Nacionalidad: <span th:text="${club.entrenador.nacionalidad}"></span></p>
+        </div>
+        <div class="dark-card p-3" style="border-radius:0 0 10px 10px;color:#8b949e;" th:if="${club.entrenador == null}">Sin entrenador</div>
+      </div>
+
+      <!-- @ManyToOne -->
+      <div class="col-md-6">
+        <div class="rel-header" style="background:rgba(168,85,247,0.15);color:#c084fc;">
+          @ManyToOne &nbsp;—&nbsp; Asociacion
+        </div>
+        <div class="dark-card p-3" style="border-radius:0 0 10px 10px;" th:if="${club.asociacion != null}">
+          <p class="mb-1 fw-bold" th:text="${club.asociacion.nombre}"></p>
+          <p class="mb-1 small" style="color:#8b949e;">Pais: <span th:text="${club.asociacion.pais}"></span></p>
+          <p class="mb-0 small" style="color:#8b949e;">Presidente: <span th:text="${club.asociacion.presidente}"></span></p>
+        </div>
+        <div class="dark-card p-3" style="border-radius:0 0 10px 10px;color:#8b949e;" th:if="${club.asociacion == null}">Sin asociacion</div>
+      </div>
+
+      <!-- @OneToMany -->
+      <div class="col-md-6">
+        <div class="rel-header" style="background:rgba(59,130,246,0.15);color:#60a5fa;">
+          @OneToMany &nbsp;—&nbsp; Jugadores (<span th:text="${#lists.size(club.jugadores)}"></span>)
+        </div>
+        <div class="dark-card" style="border-radius:0 0 10px 10px;overflow:hidden;">
+          <table class="table table-dark table-sm mb-0" th:if="${#lists.size(club.jugadores) > 0}">
+            <thead><tr><th>#</th><th>Jugador</th><th>Posicion</th></tr></thead>
+            <tbody>
+              <tr th:each="j : ${club.jugadores}">
+                <td><span style="background:#f0c040;color:#0a0e1a;border-radius:50%;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;" th:text="${j.numero}"></span></td>
+                <td th:text="${j.nombre + ' ' + j.apellido}"></td>
+                <td><span class="rel-pill pill-1toN" th:text="${j.posicion}"></span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="p-3 mb-0" style="color:#8b949e;" th:if="${#lists.size(club.jugadores) == 0}">Sin jugadores</p>
+        </div>
+      </div>
+
+      <!-- @ManyToMany -->
+      <div class="col-md-6">
+        <div class="rel-header" style="background:rgba(239,68,68,0.15);color:#f87171;">
+          @ManyToMany &nbsp;—&nbsp; Competiciones (<span th:text="${#lists.size(club.competiciones)}"></span>)
+        </div>
+        <div class="dark-card p-3" style="border-radius:0 0 10px 10px;">
+          <div th:each="comp : ${club.competiciones}" class="mb-2 p-2 rounded" style="background:#0d2550;">
+            <div class="fw-semibold" th:text="${comp.nombre}"></div>
+            <small style="color:#8b949e;">Premio: $<span th:text="${#numbers.formatInteger(comp.montoPremio,1,'COMMA')}"></span></small>
+          </div>
+          <p class="mb-0" style="color:#8b949e;" th:if="${#lists.size(club.competiciones) == 0}">Sin competiciones</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
